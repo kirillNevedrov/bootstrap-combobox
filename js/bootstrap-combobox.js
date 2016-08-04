@@ -418,6 +418,9 @@
         this.$source.val('').trigger('change');
         this.$target.val('').trigger('change');
       }
+      else {
+        this.$source.trigger('change');
+      }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
     }
 
