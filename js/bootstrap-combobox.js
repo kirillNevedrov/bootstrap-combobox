@@ -101,9 +101,9 @@
     	this.$element.attr('id', this.$source.attr('id') + this.options.appendId);
     }
     this.$element.attr('placeholder', this.options.placeholder)
-    this.$target.prop('name', this.$source.prop('name'))
+    //this.$target.prop('name', this.$source.prop('name'))
     this.$target.val(this.$source.val())
-    this.$source.removeAttr('name')  // Remove from source otherwise form will pass parameter twice.
+    //this.$source.removeAttr('name')  // Remove from source otherwise form will pass parameter twice.
     this.$element.attr('required', this.$source.attr('required'))
     this.$element.attr('rel', this.$source.attr('rel'))
     this.$element.attr('title', this.$source.attr('title'))
