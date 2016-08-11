@@ -482,7 +482,7 @@
 
   $.fn.combobox.defaults = {
     bsVersion: '3'
-  , menu: '<ul class="typeahead typeahead-long dropdown-menu"></ul>'
+  , menu: '<ul class="typeahead typeahead-long dropdown-menu ps-child"></ul>'
   , item: '<li><a href="#"></a></li>'
   };
 
