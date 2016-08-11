@@ -48,18 +48,25 @@
     constructor: Combobox
 
   ,createMenu: function (items) {
-      this.$menu = $(this.options.menu);
+      var $menu = $(this.options.menu);
 
-      this.$menu
+      $menu
           .on('click', $.proxy(this.click, this))
           .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
           .on('mouseleave', 'li', $.proxy(this.mouseleave, this));
 
       if(items){
-          this.$menu.append(items);
+          $menu.append(items);
       }
 
-      this.$menu.insertAfter(this.$element);
+      if(this.$menu){
+          this.$menu.replaceWith($menu);
+      }
+      else{
+          $menu.insertAfter(this.$element);
+      }
+
+      this.$menu = $menu;
   }
   , setup: function () {
       var combobox = $(this.template());
@@ -237,7 +244,6 @@
 
       items.first().addClass('active');
 
-      this.$menu.remove();
       this.createMenu(items);
       //this.$menu.html(items);
 
