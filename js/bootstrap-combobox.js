@@ -31,7 +31,8 @@
     this.$element = this.$container.find('input[type=text]');
     this.$target = this.$container.find('input[type=hidden]');
     this.$button = this.$container.find('.dropdown-toggle');
-    this.$menu = $(this.options.menu).appendTo('body');
+    //this.$menu = $(this.options.menu).appendTo('body');
+    this.createMenu();
     this.matcher = this.options.matcher || this.matcher;
     this.sorter = this.options.sorter || this.sorter;
     this.highlighter = this.options.highlighter || this.highlighter;
@@ -46,6 +47,20 @@
 
     constructor: Combobox
 
+  ,createMenu: function (items) {
+      this.$menu = $(this.options.menu);
+
+      this.$menu
+          .on('click', $.proxy(this.click, this))
+          .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
+          .on('mouseleave', 'li', $.proxy(this.mouseleave, this));
+
+      if(items){
+          this.$menu.append(items);
+      }
+
+      this.$menu.insertAfter(this.$element);
+  }
   , setup: function () {
       var combobox = $(this.template());
       this.$source.before(combobox);
@@ -134,7 +149,7 @@
       });
 
       this.$menu
-        .insertAfter(this.$element)
+        //.insertAfter(this.$element)
         .css({
           top: pos.top + pos.height
         , left: pos.left
@@ -150,6 +165,7 @@
   , hide: function () {
       this.$menu.hide();
       $('.dropdown-menu').off('mousedown', $.proxy(this.scrollSafety, this));
+      this.$element.off('blur');
       this.$element.on('blur', $.proxy(this.blur, this));
       this.shown = false;
       return this;
@@ -220,7 +236,11 @@
       })
 
       items.first().addClass('active');
-      this.$menu.html(items);
+
+      this.$menu.remove();
+      this.createMenu(items);
+      //this.$menu.html(items);
+
       return this;
     }
 
@@ -299,10 +319,10 @@
         this.$element.on('keydown', $.proxy(this.keydown, this));
       }
 
-      this.$menu
-        .on('click', $.proxy(this.click, this))
-        .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
-        .on('mouseleave', 'li', $.proxy(this.mouseleave, this));
+      // this.$menu
+      //   .on('click', $.proxy(this.click, this))
+      //   .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
+      //   .on('mouseleave', 'li', $.proxy(this.mouseleave, this));
 
       this.$button
         .on('click', $.proxy(this.toggle, this));
